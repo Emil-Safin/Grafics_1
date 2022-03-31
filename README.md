@@ -1,51 +1,51 @@
-#include "GL/glew.h"                                                                                                                                                   
-#include "GL/freeglut.h"                                                                                                                                               
-#include <stdio.h>                                                                                                                                                     
-#include <stdlib.h>                                                                                                                                                     
-#include "GL/glut.h"                                                                                                                                                   
-#include <glm/glm.hpp>                                                                                                                                                 
-#include "glm/vec2.hpp"                                                                                                                                                
+    #include "GL/glew.h"                                                                                                                                              
+    #include "GL/freeglut.h"                                                                                                                                           
+    #include <stdio.h>                                                                                                                                                 
+    #include <stdlib.h>                                                                                                                                                 
+    #include "GL/glut.h"                                                                                                                                           
+    #include "glm/vec2.hpp"                                                                                                                                             
+    #include <glm/glm.hpp>
+    using namespace glm;                                                                                                                                                
 
-using namespace glm;                                                                                                                                                
+		GLuint VBO; // переменная для хранения указателя на буфер вершин  //
 
-GLuint VBO; // переменная для хранения указателя на буфер вершин                                                                                                       
-
-void Display(void)                                                                                                                                                     
-{
-  //  glClear(GL_COLOR_BUFFER_BIT);  // очищает буфер цвета                                                                                                             
-  //  glClearColor(0.9f, 0.5f, 0.5f, 0.0f); // цвет                                                                                                                     
-    glEnableVertexAttribArray(0); // индексация                                                                                                                         
-    glBindBuffer(GL_ARRAY_BUFFER, VBO); // привязываем буфер для приготавливания его для отрисовки                                                                     
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // как воспринимать данные внутри буфера(шейдеры, кол-во компонентов, тип данных, нормализация атрибута)     
-    glDrawArrays(GL_TRIANGLES, 0, 3); // рисуем все(1 параментр указали тип как точку, это значит, что каждая вершина - одна точка, следующий параметр это индекс первой вершины для отрисовки, последний параметр - количество вершин для отрисовки)                                                                                     
-    glDisableVertexAttribArray(0); // отключение индексации                                                                                                             
-    glutSwapBuffers();// смена буфера                                                                                                                                   
-
-}
-
-int main(int argc, char* argv[]) {                                                                                                                                     
-    glutInit(&argc, argv);// инициализируем glut, параметры могут быть переданы прямо из командной строки и включают полезные опции                                    
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA); // включение двойной буферизации и буфера цвета(GLUT_DOUBLE включает двойную буферизацию, GLUT_RGBA буфер цвета)     
-    glutInitWindowSize(1024, 768);                                                                                                                                     
-    glutInitWindowPosition(100, 100);                                                                                                                                   
-    glutCreateWindow("Tutorial 01");                                                                                                                                   
-    glutDisplayFunc(Display);  // регулярно вызывает рендер сцену, эта функция регулярно вызывается GLUT'ом                                                             
-    //glutDisplayFunc();                                                                                                                                               
-    GLenum res = glewInit(); // инициализируем GLEW и проверяем на ошибки                                                                                               
-    if (res != GLEW_OK)                                                                                                                                                 
+    void Display(void)                                                                                                                                                     
     {
-        fprintf(stderr, "Error: '%s'\n", glewGetErrorString(res));                                                                                                     
-        return 1;                                                                                                                                                       
+
+        glClear(GL_COLOR_BUFFER_BIT);  // очищает буфер цвета    
+        glClearColor(0.9f, 0.5f, 0.5f, 0.0f); // цвет    
+        glEnableVertexAttribArray(0); // индексация                                                                                                                         
+        glBindBuffer(GL_ARRAY_BUFFER, VBO); // привязываем буфер для приготавливания его для отрисовки                                                                     
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0); // как воспринимать данные внутри буфера(шейдеры, кол-во компонентов, тип данных, нормализация атрибута)     
+        glDrawArrays(GL_TRIANGLES, 0, 3); // рисуем все(1 параментр указали тип как точку, это значит, что каждая вершина - одна точка, следующий параметр это индекс первой вершины для отрисовки, последний параметр - количество вершин для отрисовки)                                                                                     
+        glDisableVertexAttribArray(0); // отключение индексации                                                                                                             
+        glutSwapBuffers();// смена буфера                                                                                                                                   
+
     }
-    vec3 Vertices[3]; // задаем массив и объявляем xyz                                                                                                                 
-    Vertices[0] = vec3(1.0f, 1.0f, 0.0f);                                                                                                                               
-    Vertices[1] = vec3(-1.0f, 0.0f, 0.0f);                                                                                                                            
-    Vertices[2] = vec3(1.0f, -1.0f, 0.0f);                                                                                                                             
-    glGenBuffers(1, &VBO); // создание буфера для помещения объектов (часто принимает 2 параметра: первый определяет количество объектов, которые вы хотите создать, и второй ссылка на массив типа GLuints для хранения указателя, по которому будут храниться данные)                                                                       
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);                                                                                                                               
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);  // наполняем данными                                                                   
-    glutMainLoop();// цикл вызывающий дисплей фанк, чтобы дать ей возможность нарисовать кадр (GLUT будет вызывать только функцию отображения на экран)                 
-}
+    int main(int argc, char* argv[]) { 
+
+        glutInit(&argc, argv);// инициализируем glut, параметры могут быть переданы прямо из командной строки и включают полезные опции                                    
+        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA); // включение двойной буферизации и буфера цвета(GLUT_DOUBLE включает двойную буферизацию, GLUT_RGBA буфер цвета)     
+        glutInitWindowSize(1024, 768);                                                                                                                                     
+        glutInitWindowPosition(100, 100);                                                                                                                                   
+        glutCreateWindow("Tutorial 01");                                                                                                                                   
+        glutDisplayFunc(Display);  // регулярно вызывает рендер сцену, эта функция регулярно вызывается GLUT'ом                                                             
+        //glutDisplayFunc();                                                                                                                                               
+        GLenum res = glewInit(); // инициализируем GLEW и проверяем на ошибки                                                                                               
+        if (res != GLEW_OK)                                                                                                                                                 
+        {
+            fprintf(stderr, "Error: '%s'\n", glewGetErrorString(res));                                                                                                     
+            return 1;                                                                                                                                                       
+        }
+        vec3 Vertices[3]; // задаем массив и объявляем xyz                                                                                                                 
+        Vertices[0] = vec3(1.0f, 1.0f, 0.0f);                                                                                                                               
+        Vertices[1] = vec3(-1.0f, 0.0f, 0.0f);                                                                                                                            
+        Vertices[2] = vec3(1.0f, -1.0f, 0.0f);                                                                                                                             
+        glGenBuffers(1, &VBO); // создание буфера для помещения объектов (часто принимает 2 параметра: первый определяет количество объектов, которые вы хотите создать, и второй ссылка на массив типа GLuints для хранения указателя, по которому будут храниться данные)                                                                       
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);                                                                                                                               
+        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);  // наполняем данными                                                                   
+        glutMainLoop();// цикл вызывающий дисплей фанк, чтобы дать ей возможность нарисовать кадр (GLUT будет вызывать только функцию отображения на экран) 
+    }
 
 
 
