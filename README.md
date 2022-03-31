@@ -7,7 +7,7 @@
     #include <glm/glm.hpp>
     using namespace glm;                                                                                                                                                
 
-		GLuint VBO; // переменная для хранения указателя на буфер вершин  //
+    GLuint VBO; // переменная для хранения указателя на буфер вершин  //
 
     void Display(void)                                                                                                                                                     
     {
