@@ -1,3 +1,4 @@
+   ``` c++
     #include "GL/glew.h"                                                                                                                                              
     #include "GL/freeglut.h"                                                                                                                                           
     #include <stdio.h>                                                                                                                                                 
@@ -46,7 +47,7 @@
         glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);  // наполняем данными                                                                   
         glutMainLoop();// цикл вызывающий дисплей фанк, чтобы дать ей возможность нарисовать кадр (GLUT будет вызывать только функцию отображения на экран) 
     }
-
+```
 
 
 
